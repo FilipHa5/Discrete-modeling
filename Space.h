@@ -22,8 +22,6 @@ protected:
 public:
     Space(std::string, bool,int x, int y);
     Space(std::string, bool, int x, int y, int z);
-    
-    int getMode(std::map <int, int>) const;
 
     void applyBoundaryCondition();
     bool isEmpty() const;
