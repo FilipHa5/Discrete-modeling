@@ -1,13 +1,8 @@
 #include <map>
 #include <string>
-#include <optional>
 
 class Space
 {
-private:
-int ** allocate2dGrid(int, int);
-int *** allocate3dGrid(int, int);
-
 protected:
     int ** grid_t;
     int ** grid_t1;
@@ -15,7 +10,7 @@ protected:
     int *** grid_t13d;
     int cols;
     int rows;
-    std::optional<int> depth;
+    int depth;
     std::string neighbourhood;
     bool isPeriodic;
 
