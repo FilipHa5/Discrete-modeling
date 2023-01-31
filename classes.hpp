@@ -2,6 +2,8 @@
 
 #include <map>
 #include <string>
+#include <vector>
+#include <tuple>
 
 /******************************************************************************
                                 Class Space
@@ -63,10 +65,23 @@ public:
     void printArrays();
 };
 
-class MonteCarlo2D : public Space
+class MonteCarlo : public Space
 {
+protected:
+    int steps;
+    int calculateEnergy(int, std::map<int, int>);
+    
+public:
+    void runMcClassic();
+    void runMcOpt();
 };
 
-class MonteCarlo3D : public Space
+class MonteCarlo2D : public MonteCarlo
 {
+    std::vector<std::tuple<int, int>> prepareCoordinatesToProcess();
+};
+
+class MonteCarlo3D : public MonteCarlo
+{
+    std::vector<std::tuple<int, int, int>> prepareCoordinatesToProcess();
 };
