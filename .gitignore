@@ -12,3 +12,5 @@
 *.s
 # Ignore all exe
 *.exe
+# Unignore images
+!*Images
