@@ -50,6 +50,8 @@ public:
     void swapArrays();
     void runCa();
     void printArrays();
+
+    ~CellularAutomata2D();
 };
 
 class CellularAutomata3D : public Space
@@ -63,6 +65,8 @@ public:
     void swapArrays();
     void runCa();
     void printArrays();
+
+    ~CellularAutomata3D();
 };
 
 class MonteCarlo : public Space
@@ -74,14 +78,20 @@ protected:
 public:
     void runMcClassic();
     void runMcOpt();
+
+    ~MonteCarlo();
 };
 
 class MonteCarlo2D : public MonteCarlo
 {
     std::vector<std::tuple<int, int>> prepareCoordinatesToProcess();
+
+    ~MonteCarlo2D();
 };
 
 class MonteCarlo3D : public MonteCarlo
 {
     std::vector<std::tuple<int, int, int>> prepareCoordinatesToProcess();
+
+    ~MonteCarlo3D();
 };
