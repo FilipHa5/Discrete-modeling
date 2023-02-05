@@ -103,7 +103,7 @@ Space::~Space()
 }
 void Space::applyBoundaryCondition()
 {
-    if (isPeriodic == true)
+    if (grid_t != nullptr && isPeriodic == true)
     {
         for (int j = 1; j < cols - 1; j++)
         {

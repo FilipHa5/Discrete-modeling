@@ -10,4 +10,5 @@ powodować będzie „ucinanie” symulacji na brzegach. W przypadku warunku per
 zastosowana zostanie stosowna funkcja modyfikująca jedynie nadmiarowo zaalokowane brzegi.
 
 ![](Images/Example_CA.png)
+
 Rys. 1 - Przykładowa mikrostruktura wygenerowana metodą automatów komórkowych

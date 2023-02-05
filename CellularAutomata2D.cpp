@@ -73,9 +73,9 @@ bool CellularAutomata2D::isDone() const
 
 void CellularAutomata2D::swapArrays()
 {
-    for (int i = 0; i < rows; i++)
+    for (int i = 1; i < rows-1; i++)
     {
-        for (int j = 0; j < cols; j++)
+        for (int j = 1; j < cols-1; j++)
         {
             grid_t[i][j] = grid_t1[i][j];
         }
@@ -101,7 +101,6 @@ void CellularAutomata2D::runCa() // Code redundancy is on purpose due to perform
                 }
             }
             swapArrays();
-            printArrays();
         }
     }
     if (neighbourhood == "VonNeumann")

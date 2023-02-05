@@ -2,6 +2,24 @@
 #include <random>
 #include <chrono>
 #include <tuple>
+#include <algorithm>
+
+MonteCarlo2D::MonteCarlo2D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int nucleons, int steps)
+    : CellularAutomata2D(neighbourhood, isPeriodic, cols, rows, nucleons), steps(steps)
+{
+}
+
+int MonteCarlo2D::calculateEnergy(int id, std::map<int, int> &neighbourhood)
+{
+    int energy = 0;
+    for (auto const &p : neighbourhood)
+    {
+        if (p.first != id)
+        energy++;
+    }
+
+    return energy;
+}
 
 std::vector<std::tuple<int, int>> MonteCarlo2D::prepareCoordinatesToProcess()
 {

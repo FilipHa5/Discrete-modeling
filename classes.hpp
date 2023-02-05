@@ -51,7 +51,6 @@ public:
     void runCa();
     void printArrays();
 
-    ~CellularAutomata2D();
 };
 
 class CellularAutomata3D : public Space
@@ -60,52 +59,45 @@ private:
     int nucleons;
 
 public:
+    CellularAutomata3D(std::string, bool, int, int, int, int);
     void nucleate();
     bool isDone() const;
     void swapArrays();
     void runCa();
     void printArrays();
 
-    ~CellularAutomata3D();
 };
 
-class MonteCarlo : public Space
+class MonteCarlo2D : public CellularAutomata2D
 {
 protected:
     int steps;
     int calculateEnergy(int, std::map<int, int>&);
-    
 public:
-    MonteCarlo();
-    void runMcClassic();
-    virtual void runMcOpt();
-
-    ~MonteCarlo();
-};
-
-class MonteCarlo2D : public MonteCarlo
-{
-    MonteCarlo2D();
+    MonteCarlo2D(std::string, bool, int, int, int, int);
     std::vector<std::tuple<int, int>> prepareCoordinatesToProcess();
     void makeStepOnGrid(std::vector<std::tuple<int, int>> &coordinates);
     void runMcOpt();
 
-    ~MonteCarlo2D();
 };
 
-class MonteCarlo3D : public MonteCarlo
-{  
-    MonteCarlo3D();
+class MonteCarlo3D : public CellularAutomata3D
+{ 
+protected:
+    int steps;
+    int calculateEnergy(int, std::map<int, int>&);
+
+public:
+    MonteCarlo3D(std::string, bool, int, int, int, int, int);
     std::vector<std::tuple<int, int, int>> prepareCoordinatesToProcess();
     void makeStepOnGrid(std::vector<std::tuple<int, int, int>> &coordinates);
     void runMcOpt();
 
-    ~MonteCarlo3D();
 };
 
 class Simulation
 {
-private:
+protected:
     CellularAutomata2D Ca2d;
     CellularAutomata2D Ca3d;
     MonteCarlo2D Mc2d;
@@ -114,5 +106,7 @@ private:
 public:
     bool is3d;
 
-    Simulation();
+    Simulation(std::string, bool, int, int, int, int);
+    Simulation(std::string, bool, int, int, int, int, int);
+
 };

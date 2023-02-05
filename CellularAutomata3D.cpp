@@ -5,6 +5,12 @@
 #include <algorithm>
 #include <vector>
 
+CellularAutomata3D::CellularAutomata3D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int depth, int nucleons)
+    : Space(neighbourhood, isPeriodic, cols, rows, depth),
+      nucleons(nucleons)
+{
+}
+
 void CellularAutomata3D::printArrays()
 {
     for (int i = 0; i < rows; ++i)
