@@ -31,7 +31,7 @@ void MonteCarlo2D::makeStepOnGrid(std::vector<std::tuple<int, int>> &coordinates
         int random_row = std::get<0>(coordinatesToProcess[element]);
         int random_col = std::get<1>(coordinatesToProcess[element]);
 
-        if (this->neighbourhood == "Moore")
+        if (this->neighbourhood == "Moore") // this if can be moved out of the loop to increase performance
         {
             std::map<int, int> neighbourhood = checkoutMooreNeighbourhood(grid_t, random_row, random_col);
             int real_id = grid_t[random_row][random_col];
@@ -49,5 +49,32 @@ void MonteCarlo2D::makeStepOnGrid(std::vector<std::tuple<int, int>> &coordinates
                 grid_t[random_row][random_col] = temp_id;
             }
         }
+        if (this->neighbourhood == "VonNeumann") // this if can be moved out of the loop to increase performance
+        {
+            std::map<int, int> neighbourhood = checkoutVonNeumannNeighbourhood(grid_t, random_row, random_col);
+            int real_id = grid_t[random_row][random_col];
+
+            std::uniform_int_distribution<int> u_rand_hor(-1, 1);
+            std::uniform_int_distribution<int> u_rand_vert(-1, 1);
+
+            int hor_mask = u_rand_hor(rng);
+            int vert_mask = u_rand_vert(rng);
+
+            int temp_id = grid_t[random_row + hor_mask][random_col + vert_mask];
+
+            if (calculateEnergy(temp_id, neighbourhood) < calculateEnergy(real_id, neighbourhood) && calculateEnergy(temp_id, neighbourhood) != 0)
+            {
+                grid_t[random_row][random_col] = temp_id;
+            }
+        }
+    }
+}
+
+void MonteCarlo2D::runMcOpt()
+{
+    for (int i = 0; i<this->steps; i++)
+    {
+        std::vector<std::tuple<int, int>> coordinatesToProcess = prepareCoordinatesToProcess();
+        makeStepOnGrid(coordinatesToProcess);
     }
 }

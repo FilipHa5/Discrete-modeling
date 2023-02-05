@@ -73,25 +73,46 @@ class MonteCarlo : public Space
 {
 protected:
     int steps;
-    int calculateEnergy(int, std::map<int, int>);
+    int calculateEnergy(int, std::map<int, int>&);
     
 public:
+    MonteCarlo();
     void runMcClassic();
-    void runMcOpt();
+    virtual void runMcOpt();
 
     ~MonteCarlo();
 };
 
 class MonteCarlo2D : public MonteCarlo
 {
+    MonteCarlo2D();
     std::vector<std::tuple<int, int>> prepareCoordinatesToProcess();
+    void makeStepOnGrid(std::vector<std::tuple<int, int>> &coordinates);
+    void runMcOpt();
 
     ~MonteCarlo2D();
 };
 
 class MonteCarlo3D : public MonteCarlo
-{
+{  
+    MonteCarlo3D();
     std::vector<std::tuple<int, int, int>> prepareCoordinatesToProcess();
+    void makeStepOnGrid(std::vector<std::tuple<int, int, int>> &coordinates);
+    void runMcOpt();
 
     ~MonteCarlo3D();
+};
+
+class Simulation
+{
+private:
+    CellularAutomata2D Ca2d;
+    CellularAutomata2D Ca3d;
+    MonteCarlo2D Mc2d;
+    MonteCarlo3D Mc3d;
+
+public:
+    bool is3d;
+
+    Simulation();
 };
