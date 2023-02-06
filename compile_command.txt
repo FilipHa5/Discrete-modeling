@@ -1,0 +1,1 @@
+g++ main.cpp Space.cpp MonteCarlo3D.cpp MonteCarlo2D.cpp CellularAutomata3D.cpp CellularAutomata2D.cpp

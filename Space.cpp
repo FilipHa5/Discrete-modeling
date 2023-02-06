@@ -47,8 +47,8 @@ Space::Space(std::string nieghbourhood, bool isPeriodic, int cols, int rows, int
 
     for (int i = 0; i < this->rows; i++)
     {
-        grid_t3d[i] = new int *[this->rows];
-        grid_t13d[i] = new int *[this->rows];
+        grid_t3d[i] = new int *[this->cols];
+        grid_t13d[i] = new int *[this->cols];
 
         for (int j = 0; j < this->rows; j++)
         {
@@ -60,7 +60,7 @@ Space::Space(std::string nieghbourhood, bool isPeriodic, int cols, int rows, int
     {
         for (int j = 0; j < this->rows; j++)
         {
-            for (int k = 0; k < depth; k++)
+            for (int k = 0; k < this->depth; k++)
             {
                 grid_t3d[i][j][k] = 0;
                 grid_t13d[i][j][k] = 0;
@@ -122,7 +122,7 @@ void Space::applyBoundaryCondition()
         grid_t[rows - 1][cols - 1] = grid_t[1][1]; // right lower corner
     }
 
-    if ((grid_t3d != nullptr) && isPeriodic == true)
+    if (grid_t3d != nullptr && isPeriodic == true)
     {
         for (int j = 1; j < cols - 1; j++)
         {

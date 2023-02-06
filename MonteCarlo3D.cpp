@@ -57,7 +57,7 @@ void MonteCarlo3D::makeStepOnGrid(std::vector<std::tuple<int, int, int>> &coordi
         if (this->neighbourhood == "Moore") // this if can be moved out of the loop to increase performance
         {
             std::map<int, int> neighbourhood = checkoutMooreNeighbourhood(grid_t3d, random_row, random_col, random_depth);
-            int real_id = grid_t[random_row][random_col];
+            int real_id = grid_t3d[random_row][random_col][random_depth];
 
             std::uniform_int_distribution<int> u_rand_hor(-1, 1);
             std::uniform_int_distribution<int> u_rand_vert(-1, 1);
