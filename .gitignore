@@ -14,3 +14,7 @@
 *.exe
 # Unignore images
 !*Images
+# Unignore src
+!*src
+# Unignore gui
+!*gui
