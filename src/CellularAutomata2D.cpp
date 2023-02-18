@@ -127,3 +127,8 @@ void CellularAutomata2D::runCa() // Code redundancy is on purpose due to perform
         }
     }
 }
+
+int CellularAutomata2D::getNucleons()
+{
+    return this->nucleons;
+}

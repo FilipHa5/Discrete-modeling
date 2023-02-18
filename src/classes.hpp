@@ -30,6 +30,12 @@ public:
     void applyBoundaryCondition();
     bool isEmpty() const;
     int getMode(std::map<int, int>) const;
+    int getCols();
+    int getRows();
+    int getDepth();
+    std::string getNeighbourhood();
+    std::string getBoundaryCondition();
+
 
     std::map<int, int> checkoutMooreNeighbourhood(int **, int, int) const;
     std::map<int, int> checkoutMooreNeighbourhood(int ***, int, int, int) const;
@@ -52,7 +58,7 @@ public:
     void swapArrays();
     void runCa();
     void printArrays();
-
+    int getNucleons();
 };
 
 class CellularAutomata3D : public Space
@@ -68,7 +74,7 @@ public:
     void swapArrays();
     void runCa();
     void printArrays();
-
+    int getNucleons();
 };
 
 class MonteCarlo2D : public CellularAutomata2D
@@ -82,7 +88,7 @@ public:
     std::vector<std::tuple<int, int>> prepareCoordinatesToProcess();
     void makeStepOnGrid(std::vector<std::tuple<int, int>> &coordinates);
     void runMcOpt();
-
+    int ** getGridPtr();
 };
 
 class MonteCarlo3D : public CellularAutomata3D
@@ -97,23 +103,23 @@ public:
     std::vector<std::tuple<int, int, int>> prepareCoordinatesToProcess();
     void makeStepOnGrid(std::vector<std::tuple<int, int, int>> &coordinates);
     void runMcOpt();
-
+    int *** getGridPtr();
 };
 
 class Simulation
 {
-protected:
-    CellularAutomata2D Ca2d;
-    CellularAutomata2D Ca3d;
-    MonteCarlo2D Mc2d;
-    MonteCarlo3D Mc3d;
-
-public:
+private:
     bool is3d;
 
+protected:
+    MonteCarlo2D Obj2d;
+    MonteCarlo3D Obj3d;
+
+public:
     Simulation(std::string, bool, int, int, int, int);
     Simulation(std::string, bool, int, int, int, int, int);
 
     void run();
-
+    void saveGrid(MonteCarlo3D&);
+    void saveGrid(MonteCarlo2D&);
 };

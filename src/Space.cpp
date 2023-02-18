@@ -13,8 +13,8 @@ Space::Space(std::string nieghbourhood, bool isPeriodic, int cols, int rows)
     this->depth = 0;
 
     std::cout << "Space Constructor 2D" << std::endl;
-    std::cout << "Cols:"<<this->cols;
-    std::cout << "Rows:"<<this->rows;
+    std::cout << "Cols:" << this->cols;
+    std::cout << "Rows:" << this->rows;
 
     grid_t3d = nullptr;
     grid_t13d = nullptr;
@@ -186,7 +186,7 @@ std::map<int, int> Space::checkoutMooreNeighbourhood(int **grid_t, int i, int j)
 
 std::map<int, int> Space::checkoutMooreNeighbourhood(int ***grid_t3d, int i, int j, int k) const
 {
-    static std::map<int, int> neighbours;
+    std::map<int, int> neighbours;
 
     neighbours[grid_t3d[i - 1][j - 1][k]]++;
     neighbours[grid_t3d[i - 1][j][k]]++;
@@ -257,13 +257,13 @@ std::map<int, int> Space::checkoutVonNeumannNeighbourhood(int ***grid_t3d, int i
     return neighbours;
 }
 
-int Space::getMode(std::map<int, int> counter) const 
+int Space::getMode(std::map<int, int> counter) const
 {
-    int most_common_value=0;
-    int most_common_counter=0;
-    for (auto const& p : counter)
+    int most_common_value = 0;
+    int most_common_counter = 0;
+    for (auto const &p : counter)
     {
-        if (p.first !=0)
+        if (p.first != 0)
         {
             if (p.second > most_common_counter)
             {
@@ -275,3 +275,32 @@ int Space::getMode(std::map<int, int> counter) const
     return most_common_value;
 }
 
+int Space::getCols()
+{
+    return this->cols;
+}
+
+int Space::getRows()
+{
+    return this->rows;
+}
+
+int Space::getDepth()
+{
+    return this->depth;
+}
+
+std::string Space::getNeighbourhood()
+{
+    return this->neighbourhood;
+}
+
+std::string Space::getBoundaryCondition()
+{
+    if (this->isPeriodic == true)
+    {
+        return "Periodic";
+    }
+    else
+        return "Absorbing";
+}

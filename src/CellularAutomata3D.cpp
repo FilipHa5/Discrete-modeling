@@ -45,7 +45,7 @@ void CellularAutomata3D::nucleate()
 
 
     int nucleonsCounter = 1;
-    while (nucleonsCounter >= nucleons)
+    while (nucleonsCounter <= nucleons)
     {
         int randomRow = uni_row(rng);
         int randomCol = uni_col(rng);
@@ -141,4 +141,9 @@ void CellularAutomata3D::runCa()
             swapArrays();
         }
     }
+}
+
+int CellularAutomata3D::getNucleons()
+{
+    return this->nucleons;
 }

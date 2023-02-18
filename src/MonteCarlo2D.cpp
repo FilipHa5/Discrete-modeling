@@ -101,3 +101,8 @@ void MonteCarlo2D::runMcOpt()
         makeStepOnGrid(coordinatesToProcess);
     }
 }
+
+int ** MonteCarlo2D::getGridPtr()
+{
+    return grid_t;
+}

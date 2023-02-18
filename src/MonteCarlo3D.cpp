@@ -112,3 +112,8 @@ void MonteCarlo3D::runMcOpt()
         makeStepOnGrid(coordinatesToProcess);
     }
 }
+
+int *** MonteCarlo3D::getGridPtr()
+{
+    return grid_t3d;
+}
