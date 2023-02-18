@@ -37,7 +37,7 @@ void CellularAutomata2D::nucleate()
     std::uniform_int_distribution<int> uni_col(1, cols - 2);
 
     int nucleonsCounter = 1;
-    while (nucleonsCounter != nucleons)
+    while (nucleonsCounter <= nucleons)
     {
         int randomRow = uni_row(rng);
         int randomCol = uni_col(rng);
@@ -73,9 +73,9 @@ bool CellularAutomata2D::isDone() const
 
 void CellularAutomata2D::swapArrays()
 {
-    for (int i = 1; i < rows-1; i++)
+    for (int i = 0; i < rows; i++)
     {
-        for (int j = 1; j < cols-1; j++)
+        for (int j = 0; j < cols; j++)
         {
             grid_t[i][j] = grid_t1[i][j];
         }

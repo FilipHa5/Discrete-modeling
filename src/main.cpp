@@ -2,7 +2,7 @@
 
 int main(int argc,char* argv[])
 {
-    MonteCarlo3D s1("Moore", true, 10, 10, 10, 5, 10);
+    MonteCarlo2D s1("Moore", true, 10, 10, 5, 10);
     s1.nucleate();
     s1.runCa();
     s1.printArrays();
