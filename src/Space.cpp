@@ -1,6 +1,10 @@
 #include "classes.hpp"
 #include <iostream>
 
+Space::Space()
+{
+}
+
 Space::Space(std::string nieghbourhood, bool isPeriodic, int cols, int rows)
     : isPeriodic(isPeriodic), neighbourhood(nieghbourhood)
 {

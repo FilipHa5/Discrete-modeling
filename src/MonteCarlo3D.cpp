@@ -4,6 +4,11 @@
 #include <tuple>
 #include <algorithm>
 
+MonteCarlo3D::MonteCarlo3D()
+{
+
+}
+
 MonteCarlo3D::MonteCarlo3D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int depth, int nucleons, int steps)
     : CellularAutomata3D(neighbourhood, isPeriodic, cols, rows, depth, nucleons), steps(steps)
 {

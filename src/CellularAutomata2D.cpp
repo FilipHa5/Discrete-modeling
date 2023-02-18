@@ -5,6 +5,11 @@
 #include <algorithm>
 #include <vector>
 
+CellularAutomata2D::CellularAutomata2D()
+{
+
+}
+
 CellularAutomata2D::CellularAutomata2D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int nucleons)
     : Space(neighbourhood, isPeriodic, cols, rows),
       nucleons(nucleons)
@@ -37,7 +42,7 @@ void CellularAutomata2D::nucleate()
     std::uniform_int_distribution<int> uni_col(1, cols - 2);
 
     int nucleonsCounter = 1;
-    while (nucleonsCounter != nucleons)
+    while (nucleonsCounter <= nucleons)
     {
         int randomRow = uni_row(rng);
         int randomCol = uni_col(rng);

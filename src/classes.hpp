@@ -23,6 +23,7 @@ protected:
     bool isPeriodic;
 
 public:
+    Space();
     Space(std::string, bool, int x, int y);
     Space(std::string, bool, int x, int y, int z);
 
@@ -44,6 +45,7 @@ private:
     int nucleons;
 
 public:
+    CellularAutomata2D();
     CellularAutomata2D(std::string, bool, int, int, int);
     void nucleate();
     bool isDone() const;
@@ -59,6 +61,7 @@ private:
     int nucleons;
 
 public:
+    CellularAutomata3D();
     CellularAutomata3D(std::string, bool, int, int, int, int);
     void nucleate();
     bool isDone() const;
@@ -74,6 +77,7 @@ protected:
     int steps;
     int calculateEnergy(int, std::map<int, int>&);
 public:
+    MonteCarlo2D();
     MonteCarlo2D(std::string, bool, int, int, int, int);
     std::vector<std::tuple<int, int>> prepareCoordinatesToProcess();
     void makeStepOnGrid(std::vector<std::tuple<int, int>> &coordinates);
@@ -88,6 +92,7 @@ protected:
     int calculateEnergy(int, std::map<int, int>&);
 
 public:
+    MonteCarlo3D();
     MonteCarlo3D(std::string, bool, int, int, int, int, int);
     std::vector<std::tuple<int, int, int>> prepareCoordinatesToProcess();
     void makeStepOnGrid(std::vector<std::tuple<int, int, int>> &coordinates);
@@ -108,5 +113,7 @@ public:
 
     Simulation(std::string, bool, int, int, int, int);
     Simulation(std::string, bool, int, int, int, int, int);
+
+    void run();
 
 };

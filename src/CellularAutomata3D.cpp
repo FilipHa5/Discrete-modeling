@@ -5,6 +5,11 @@
 #include <algorithm>
 #include <vector>
 
+CellularAutomata3D::CellularAutomata3D()
+{
+
+}
+
 CellularAutomata3D::CellularAutomata3D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int depth, int nucleons)
     : Space(neighbourhood, isPeriodic, cols, rows, depth),
       nucleons(nucleons)
@@ -40,7 +45,7 @@ void CellularAutomata3D::nucleate()
 
 
     int nucleonsCounter = 1;
-    while (nucleonsCounter != nucleons)
+    while (nucleonsCounter >= nucleons)
     {
         int randomRow = uni_row(rng);
         int randomCol = uni_col(rng);
