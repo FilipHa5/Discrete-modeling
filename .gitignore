@@ -18,3 +18,5 @@
 !*src
 # Unignore gui
 !*gui
+# Unignore doc
+!*documentation
