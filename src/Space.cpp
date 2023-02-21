@@ -13,8 +13,6 @@ Space::Space(std::string nieghbourhood, bool isPeriodic, int cols, int rows)
     this->depth = 0;
 
     std::cout << "Space Constructor 2D" << std::endl;
-    std::cout << "Cols:" << this->cols;
-    std::cout << "Rows:" << this->rows;
 
     grid_t3d = nullptr;
     grid_t13d = nullptr;

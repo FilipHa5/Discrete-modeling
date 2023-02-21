@@ -11,6 +11,7 @@ Metoda implementująca zarodkowanie została napisana w taki sposób, aby nie do
 
 Umożliwiono wybór dwóch rodzajów sąsiedztw - Von Neumanna oraz Moore'a
 ![](Images/Neighbourhood.png)
+
 Rys 1. Sąsiedztwa: Von Neumanna (po lewej), Moore'a (po prawej) 
 
 
