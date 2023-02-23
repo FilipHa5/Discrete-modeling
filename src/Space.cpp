@@ -7,7 +7,11 @@ Space::Space()
 
 Space::Space(std::string nieghbourhood, bool isPeriodic, int cols, int rows)
     : isPeriodic(isPeriodic), neighbourhood(nieghbourhood)
+    , grid_t{new int *[rows + 2]}
 {
+    const int* const x = &cols;
+     int const * x;
+    int * const x = &cols;
     this->cols = cols + 2;
     this->rows = rows + 2;
     this->depth = 0;
