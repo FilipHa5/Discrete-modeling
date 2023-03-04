@@ -2,12 +2,13 @@
 
 #include <string>
 #include <map>
+#include "Simulation.hpp"
 
 /******************************************************************************
                                 Class Space2D
 /******************************************************************************/
 
-class Space2D
+class Space2D : public Simulation
 {
 protected:
     int **grid_t;
@@ -21,9 +22,9 @@ public:
     Space2D();
     Space2D(std::string, bool, int, int);
 
+    void allocateGrid() override;
     void applyBoundaryCondition();
     bool isEmpty() const;
-    int getMode(std::map<int, int>) const;
     int getCols() const;
     int getRows() const;
     std::string getNeighbourhood() const;

@@ -1,8 +1,8 @@
-#include "classes.hpp"
 #include <random>
 #include <chrono>
 #include <tuple>
 #include <algorithm>
+#include "../include/MonteCarlo2D.hpp"
 
 MonteCarlo2D::MonteCarlo2D()
 {
@@ -26,7 +26,7 @@ int MonteCarlo2D::calculateEnergy(int id, std::map<int, int> &neighbourhood)
     return energy;
 }
 
-std::vector<std::tuple<int, int>> MonteCarlo2D::prepareCoordinatesToProcess()
+std::vector<std::tuple<int, int>> MonteCarlo2D::prepareCoordinatesToProcess() const
 {
     std::vector<std::tuple<int, int>> coordinatesToProcess;
     for (int i = 1; i < rows - 1; i++)
@@ -93,16 +93,11 @@ void MonteCarlo2D::makeStepOnGrid(std::vector<std::tuple<int, int>> &coordinates
     }
 }
 
-void MonteCarlo2D::runMcOpt()
+void MonteCarlo2D::runMonteCarlo()
 {
     for (int i = 0; i<this->steps; i++)
     {
         std::vector<std::tuple<int, int>> coordinatesToProcess = prepareCoordinatesToProcess();
         makeStepOnGrid(coordinatesToProcess);
     }
-}
-
-int ** MonteCarlo2D::getGridPtr()
-{
-    return grid_t;
 }

@@ -15,10 +15,10 @@ private:
 public:
     CellularAutomata3D();
     CellularAutomata3D(std::string, bool, int, int, int, int);
-    void nucleate();
+    void nucleate() override;
     bool isDone() const;
     void swapArrays();
-    void runCa();
+    void runCellularAutomata() override;
     void printArrays();
     int getNucleons();
 };

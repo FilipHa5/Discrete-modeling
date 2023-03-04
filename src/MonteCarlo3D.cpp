@@ -1,8 +1,9 @@
-#include "classes.hpp"
 #include <random>
 #include <chrono>
 #include <tuple>
 #include <algorithm>
+#include "../include/MonteCarlo3D.hpp"
+
 
 MonteCarlo3D::MonteCarlo3D()
 {
@@ -26,7 +27,7 @@ int MonteCarlo3D::calculateEnergy(int id, std::map<int, int> &neighbourhood)
     return energy;
 }
 
-std::vector<std::tuple<int, int, int>> MonteCarlo3D::prepareCoordinatesToProcess()
+std::vector<std::tuple<int, int, int>> MonteCarlo3D::prepareCoordinatesToProcess() const
 {
     std::vector<std::tuple<int, int, int>> coordinatesToProcess;
     for (int i = 1; i < rows - 1; i++)
@@ -61,8 +62,8 @@ void MonteCarlo3D::makeStepOnGrid(std::vector<std::tuple<int, int, int>> &coordi
 
         if (this->neighbourhood == "Moore") // this if can be moved out of the loop to increase performance
         {
-            std::map<int, int> neighbourhood = checkoutMooreNeighbourhood(grid_t3d, random_row, random_col, random_depth);
-            int real_id = grid_t3d[random_row][random_col][random_depth];
+            std::map<int, int> neighbourhood = checkoutMooreNeighbourhood(grid_t, random_row, random_col, random_depth);
+            int real_id = grid_t[random_row][random_col][random_depth];
 
             std::uniform_int_distribution<int> u_rand_hor(-1, 1);
             std::uniform_int_distribution<int> u_rand_vert(-1, 1);
@@ -73,17 +74,17 @@ void MonteCarlo3D::makeStepOnGrid(std::vector<std::tuple<int, int, int>> &coordi
             int vert_mask = u_rand_vert(rng);
             int depth_mask = u_rand_vert(rng);
 
-            int temp_id = grid_t3d[random_row + hor_mask][random_col + vert_mask][random_depth + depth_mask];
+            int temp_id = grid_t[random_row + hor_mask][random_col + vert_mask][random_depth + depth_mask];
 
             if (calculateEnergy(temp_id, neighbourhood) < calculateEnergy(real_id, neighbourhood) && calculateEnergy(temp_id, neighbourhood) != 0)
             {
-                grid_t3d[random_row][random_col][random_depth] = temp_id;
+                grid_t[random_row][random_col][random_depth] = temp_id;
             }
         }
         if (this->neighbourhood == "VonNeumann") // this if can be moved out of the loop to increase performance
         {
-            std::map<int, int> neighbourhood = checkoutVonNeumannNeighbourhood(grid_t3d, random_row, random_col, random_depth);
-            int real_id = grid_t[random_row][random_col];
+            std::map<int, int> neighbourhood = checkoutVonNeumannNeighbourhood(grid_t, random_row, random_col, random_depth);
+            int real_id = grid_t[random_row][random_col][random_depth];
 
             std::uniform_int_distribution<int> u_rand_hor(-1, 1);
             std::uniform_int_distribution<int> u_rand_vert(-1, 1);
@@ -94,26 +95,21 @@ void MonteCarlo3D::makeStepOnGrid(std::vector<std::tuple<int, int, int>> &coordi
             int vert_mask = u_rand_vert(rng);
             int depth_mask = u_rand_vert(rng);
 
-            int temp_id = grid_t3d[random_row + hor_mask][random_col + vert_mask][random_depth + depth_mask];
+            int temp_id = grid_t[random_row + hor_mask][random_col + vert_mask][random_depth + depth_mask];
 
             if (calculateEnergy(temp_id, neighbourhood) < calculateEnergy(real_id, neighbourhood) && calculateEnergy(temp_id, neighbourhood) != 0)
             {
-                grid_t3d[random_row][random_col][random_depth] = temp_id;
+                grid_t[random_row][random_col][random_depth] = temp_id;
             }
         }
     }
 }
 
-void MonteCarlo3D::runMcOpt()
+void MonteCarlo3D::runMonteCarlo()
 {
     for (int i = 0; i<this->steps; i++)
     {
         std::vector<std::tuple<int, int, int>> coordinatesToProcess = prepareCoordinatesToProcess();
         makeStepOnGrid(coordinatesToProcess);
     }
-}
-
-int *** MonteCarlo3D::getGridPtr()
-{
-    return grid_t3d;
 }

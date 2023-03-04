@@ -2,12 +2,13 @@
 
 #include <map>
 #include <string>
+#include "Simulation.hpp"
 
 /******************************************************************************
                                 Class Space3D
 /******************************************************************************/
 
-class Space3D
+class Space3D : public Simulation
 {
 protected:
     int ***grid_t;
@@ -22,9 +23,9 @@ public:
     Space3D();
     Space3D(std::string, bool, int x, int y, int z);
 
+    void allocateGrid() override;
     void applyBoundaryCondition();
     bool isEmpty() const;
-    int getMode(std::map<int, int>) const;
     int getCols() const;
     int getRows() const;
     int getDepth() const;

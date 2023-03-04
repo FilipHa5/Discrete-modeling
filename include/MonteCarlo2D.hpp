@@ -20,5 +20,5 @@ public:
     MonteCarlo2D(std::string, bool, int, int, int, int);
     std::vector<std::tuple<int, int>> prepareCoordinatesToProcess() const;
     void makeStepOnGrid(std::vector<std::tuple<int, int>> &coordinates);
-    void runMcOpt();
+    void runMonteCarlo() override;
 };
