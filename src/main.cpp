@@ -15,20 +15,19 @@ int main(int argc, char *argv[])
 
     cols = 10;
     rows = 10;
-    depth = 0;
+    depth = 10;
     neighbourhood = "Moore";
     isPeriodic = true;
     nucleons = 9;
     steps = 100;
 
-    std::unique_ptr<Simulation> s(new MonteCarlo2D(neighbourhood, isPeriodic, cols, rows, nucleons, steps));
-    //Simulation* s = new MonteCarlo2D(neighbourhood, isPeriodic, cols, rows, nucleons, steps);
+    std::unique_ptr<Simulation> s(new MonteCarlo3D(neighbourhood, isPeriodic, cols, rows, depth, nucleons, steps));
 
     s->allocateGrid();
     s->nucleate();
     s->runCellularAutomata();
-    
-    //delete s;
+    s->runMonteCarlo();
+    s->saveToFile();
 
     return 0;
 }

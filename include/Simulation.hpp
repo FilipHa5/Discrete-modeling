@@ -9,6 +9,7 @@ public:
     virtual void nucleate() = 0;
     virtual void runCellularAutomata() = 0;
     virtual void runMonteCarlo() = 0;
+    virtual void saveToFile() = 0;
 
     virtual ~Simulation();
 };

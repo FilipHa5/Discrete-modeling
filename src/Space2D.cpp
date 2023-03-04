@@ -29,7 +29,7 @@ void Space2D::allocateGrid()
 }
 
 Space2D::Space2D(std::string nieghbourhood, bool isPeriodic, int cols, int rows)
-    : isPeriodic(isPeriodic), neighbourhood(nieghbourhood), rows(rows + 2), cols (cols + 2)
+    : isPeriodic(isPeriodic), neighbourhood(nieghbourhood), rows(rows + 2), cols(cols + 2)
 {
     std::cout << "Space Constructor 2D" << std::endl;
 }

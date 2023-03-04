@@ -7,7 +7,6 @@
                             Class Cellular Automata 2D
 /******************************************************************************/
 
-
 class CellularAutomata2D : public Space2D
 {
 private:

@@ -8,7 +8,6 @@
 
 CellularAutomata2D::CellularAutomata2D()
 {
-
 }
 
 CellularAutomata2D::CellularAutomata2D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int nucleons)
@@ -76,9 +75,9 @@ bool CellularAutomata2D::isDone() const
 
 void CellularAutomata2D::swapArrays()
 {
-    for (int i = 1; i < rows-1; i++)
+    for (int i = 1; i < rows - 1; i++)
     {
-        for (int j = 1; j < cols-1; j++)
+        for (int j = 1; j < cols - 1; j++)
         {
             grid_t[i][j] = grid_t1[i][j];
         }
@@ -124,16 +123,4 @@ void CellularAutomata2D::runCellularAutomata() // Code redundancy is on purpose 
             swapArrays();
         }
     }
-        for (int i = 0; i < cols; ++i)
-    {
-        for (int j = 0; j < rows; ++j)
-        {
-            std::cout << grid_t[i][j] << ",";
-            ;
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl
-              << std::endl
-              << std::endl;
 }

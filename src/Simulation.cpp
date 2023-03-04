@@ -2,5 +2,4 @@
 
 Simulation::~Simulation()
 {
-    
 }

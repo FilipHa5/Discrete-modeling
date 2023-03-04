@@ -8,7 +8,6 @@
 
 CellularAutomata3D::CellularAutomata3D()
 {
-
 }
 
 CellularAutomata3D::CellularAutomata3D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int depth, int nucleons)
@@ -44,7 +43,6 @@ void CellularAutomata3D::nucleate()
     std::uniform_int_distribution<int> uni_col(1, cols - 2);
     std::uniform_int_distribution<int> uni_depth(1, cols - 2);
 
-
     int nucleonsCounter = 1;
     while (nucleonsCounter <= nucleons)
     {
@@ -52,13 +50,12 @@ void CellularAutomata3D::nucleate()
         int randomCol = uni_col(rng);
         int randomDepth = uni_depth(rng);
 
-
         std::tuple<int, int, int> coordinatesTriplet = std::make_tuple(randomRow, randomCol, randomDepth);
 
         if (std::find(coordinatesDone.begin(), coordinatesDone.end(), coordinatesTriplet) == coordinatesDone.end())
         {
             grid_t[randomRow][randomCol][randomDepth] = nucleonsCounter;
-            grid_t1[randomRow][randomCol] [randomDepth]= nucleonsCounter;
+            grid_t1[randomRow][randomCol][randomDepth] = nucleonsCounter;
 
             coordinatesDone.push_back(coordinatesTriplet);
             nucleonsCounter++;
