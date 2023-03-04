@@ -1,8 +1,14 @@
-#include "classes.hpp"
 #include <random>
 #include <chrono>
 #include <tuple>
 #include <algorithm>
+#include <iostream>
+#include <fstream>
+#include "../include/MonteCarlo2D.hpp"
+
+MonteCarlo2D::MonteCarlo2D()
+{
+}
 
 MonteCarlo2D::MonteCarlo2D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int nucleons, int steps)
     : CellularAutomata2D(neighbourhood, isPeriodic, cols, rows, nucleons), steps(steps)
@@ -15,13 +21,13 @@ int MonteCarlo2D::calculateEnergy(int id, std::map<int, int> &neighbourhood)
     for (auto const &p : neighbourhood)
     {
         if (p.first != id)
-        energy++;
+            energy++;
     }
 
     return energy;
 }
 
-std::vector<std::tuple<int, int>> MonteCarlo2D::prepareCoordinatesToProcess()
+std::vector<std::tuple<int, int>> MonteCarlo2D::prepareCoordinatesToProcess() const
 {
     std::vector<std::tuple<int, int>> coordinatesToProcess;
     for (int i = 1; i < rows - 1; i++)
@@ -88,11 +94,45 @@ void MonteCarlo2D::makeStepOnGrid(std::vector<std::tuple<int, int>> &coordinates
     }
 }
 
-void MonteCarlo2D::runMcOpt()
+void MonteCarlo2D::runMonteCarlo()
 {
-    for (int i = 0; i<this->steps; i++)
+    std::cout << "Monte Carlo 2D start" << std::endl;
+
+    for (int i = 0; i < this->steps; i++)
     {
+        std::cout << "Step " << i << std::endl;
         std::vector<std::tuple<int, int>> coordinatesToProcess = prepareCoordinatesToProcess();
         makeStepOnGrid(coordinatesToProcess);
     }
+
+    std::cout << "Monte Carlo 2D stop" << std::endl;
+}
+
+void MonteCarlo2D::saveToFile()
+{
+    std::ofstream myfile("2D report.txt");
+    if (myfile.is_open())
+    {
+        myfile << "Simulation 2D\n";
+        myfile << cols - 2 << "\n";
+        myfile << rows - 2 << "\n";
+        myfile << "MC Iter: " << steps << "\n";
+        myfile << "Periodic BC: " << isPeriodic << "\n";
+        myfile << "Neighbourhood: " << neighbourhood << "\n";
+
+        for (int i = 1; i < rows - 1; i++)
+        {
+            for (int j = 1; j < cols - 1; j++)
+            {
+                myfile << grid_t[i][j] << ",";
+            }
+
+            myfile << "\n";
+        }
+
+        std::cout << "Saved to file" << std::endl;
+        myfile.close();
+    }
+    else
+        std::cout << "Unable to open file";
 }

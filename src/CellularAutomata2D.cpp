@@ -1,12 +1,17 @@
-#include "classes.hpp"
 #include <iostream>
 #include <random>
 #include <tuple>
 #include <algorithm>
 #include <vector>
+#include "../include/CellularAutomata2D.hpp"
+#include "../include/utils.hpp"
+
+CellularAutomata2D::CellularAutomata2D()
+{
+}
 
 CellularAutomata2D::CellularAutomata2D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int nucleons)
-    : Space(neighbourhood, isPeriodic, cols, rows),
+    : Space2D(neighbourhood, isPeriodic, cols, rows),
       nucleons(nucleons)
 {
 }
@@ -46,11 +51,8 @@ void CellularAutomata2D::nucleate()
 
         if (std::find(coordinatesDone.begin(), coordinatesDone.end(), coordinatesPair) == coordinatesDone.end())
         {
-            if (grid_t3d == nullptr)
-            {
-                grid_t[randomRow][randomCol] = nucleonsCounter;
-                grid_t1[randomRow][randomCol] = nucleonsCounter;
-            }
+            grid_t[randomRow][randomCol] = nucleonsCounter;
+            grid_t1[randomRow][randomCol] = nucleonsCounter;
             coordinatesDone.push_back(coordinatesPair);
             nucleonsCounter++;
         }
@@ -82,7 +84,7 @@ void CellularAutomata2D::swapArrays()
     }
 }
 
-void CellularAutomata2D::runCa() // Code redundancy is on purpose due to performance issues
+void CellularAutomata2D::runCellularAutomata() // Code redundancy is on purpose due to performance issues
 {
     if (neighbourhood == "Moore")
     {
@@ -95,7 +97,7 @@ void CellularAutomata2D::runCa() // Code redundancy is on purpose due to perform
                 for (int j = 1; j < cols - 1; j++)
                 {
                     std::map<int, int> neighours = checkoutMooreNeighbourhood(grid_t, i, j);
-                    int mode = getMode(neighours);
+                    int mode = utils::getMode(neighours);
                     if (mode != 0)
                         grid_t1[i][j] = mode;
                 }
@@ -113,7 +115,7 @@ void CellularAutomata2D::runCa() // Code redundancy is on purpose due to perform
                 {
                     applyBoundaryCondition();
                     std::map<int, int> neighours = checkoutVonNeumannNeighbourhood(grid_t, i, j);
-                    int mode = getMode(neighours);
+                    int mode = utils::getMode(neighours);
                     if (mode != 0)
                         grid_t1[i][j] = mode;
                 }

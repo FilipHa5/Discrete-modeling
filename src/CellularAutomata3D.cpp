@@ -1,12 +1,17 @@
-#include "classes.hpp"
 #include <iostream>
 #include <random>
 #include <tuple>
 #include <algorithm>
 #include <vector>
+#include "../include/CellularAutomata3D.hpp"
+#include "../include/utils.hpp"
+
+CellularAutomata3D::CellularAutomata3D()
+{
+}
 
 CellularAutomata3D::CellularAutomata3D(std::string neighbourhood, bool isPeriodic, int cols, int rows, int depth, int nucleons)
-    : Space(neighbourhood, isPeriodic, cols, rows, depth),
+    : Space3D(neighbourhood, isPeriodic, cols, rows, depth),
       nucleons(nucleons)
 {
 }
@@ -19,7 +24,7 @@ void CellularAutomata3D::printArrays()
         {
             for (int k = 0; k < depth; ++k)
             {
-                std::cout << grid_t3d[i][j][k] << ",";
+                std::cout << grid_t[i][j][k] << ",";
             }
             std::cout << std::endl;
         }
@@ -38,7 +43,6 @@ void CellularAutomata3D::nucleate()
     std::uniform_int_distribution<int> uni_col(1, cols - 2);
     std::uniform_int_distribution<int> uni_depth(1, cols - 2);
 
-
     int nucleonsCounter = 1;
     while (nucleonsCounter <= nucleons)
     {
@@ -46,13 +50,12 @@ void CellularAutomata3D::nucleate()
         int randomCol = uni_col(rng);
         int randomDepth = uni_depth(rng);
 
-
         std::tuple<int, int, int> coordinatesTriplet = std::make_tuple(randomRow, randomCol, randomDepth);
 
         if (std::find(coordinatesDone.begin(), coordinatesDone.end(), coordinatesTriplet) == coordinatesDone.end())
         {
-            grid_t3d[randomRow][randomCol][randomDepth] = nucleonsCounter;
-            grid_t13d[randomRow][randomCol] [randomDepth]= nucleonsCounter;
+            grid_t[randomRow][randomCol][randomDepth] = nucleonsCounter;
+            grid_t1[randomRow][randomCol][randomDepth] = nucleonsCounter;
 
             coordinatesDone.push_back(coordinatesTriplet);
             nucleonsCounter++;
@@ -68,7 +71,7 @@ bool CellularAutomata3D::isDone() const
         for (int j = 1; j < cols - 1; ++j)
         {
             for (int k = 1; k < depth - 1; ++k)
-                if (grid_t3d[i][j][k] == 0)
+                if (grid_t[i][j][k] == 0)
                     return false;
         }
     }
@@ -83,14 +86,14 @@ void CellularAutomata3D::swapArrays()
         {
             for (int k = 0; k < depth; ++k)
             {
-                grid_t3d[i][j][k] = grid_t13d[i][j][k];
-                grid_t13d[i][j][k] = 0;
+                grid_t[i][j][k] = grid_t1[i][j][k];
+                grid_t1[i][j][k] = 0;
             }
         }
     }
 }
 
-void CellularAutomata3D::runCa()
+void CellularAutomata3D::runCellularAutomata()
 {
     if (neighbourhood == "Moore")
     {
@@ -104,10 +107,10 @@ void CellularAutomata3D::runCa()
                 {
                     for (int k = 1; k < depth - 1; ++k)
                     {
-                        std::map<int, int> neighours = checkoutMooreNeighbourhood(grid_t3d, i, j, k);
-                        int mode = getMode(neighours);
+                        std::map<int, int> neighours = checkoutMooreNeighbourhood(grid_t, i, j, k);
+                        int mode = utils::getMode(neighours);
                         if (mode != 0)
-                            grid_t13d[i][j][k] = mode;
+                            grid_t1[i][j][k] = mode;
                     }
                 }
             }
@@ -126,14 +129,19 @@ void CellularAutomata3D::runCa()
                     for (int k = 1; k < depth - 1; ++k)
                     {
                         applyBoundaryCondition();
-                        std::map<int, int> neighours = checkoutVonNeumannNeighbourhood(grid_t3d, i, j, k);
-                        int mode = getMode(neighours);
+                        std::map<int, int> neighours = checkoutVonNeumannNeighbourhood(grid_t, i, j, k);
+                        int mode = utils::getMode(neighours);
                         if (mode != 0)
-                            grid_t13d[i][j][k] = mode;
+                            grid_t1[i][j][k] = mode;
                     }
                 }
             }
             swapArrays();
         }
     }
+}
+
+int CellularAutomata3D::getNucleons()
+{
+    return this->nucleons;
 }
